@@ -38,6 +38,9 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.authenticationService.isSignIn()) {
+            this.router.navigate(['home']);
+        }
     }
 
     private buildForm(): void {
@@ -96,5 +99,9 @@ export class LoginComponent implements OnInit {
         };
 
         this.callAuthenticationService(loginModel);
+    }
+
+    goToSignUp() {
+        this.router.navigate(['signup']);
     }
 }

@@ -51,41 +51,47 @@ export class SignupComponent implements OnInit {
   }
 
   private callAuthenticationService(loginModel) {
-    if (loginModel.valid) {
-      this.processing = true;
-      this.formError = false;
+    if (this.model.password == this.model.confirmpassword) {
+      if (loginModel.valid) {
+        this.processing = true;
+        this.formError = false;
+        this.formErrorMsg = "";
 
-      this.authenticationService.SignupUser(this.model).subscribe(res => {
-        if (this.sharedData) {
-          this.sharedData.storeSessionData(res);
+        this.authenticationService.SignupUser(this.model).subscribe(res => {
+          if (this.sharedData) {
+            this.sharedData.storeSessionData(res);
+          }
+          this.isSubmited = false;
+          this.model = null;
+          this.processing = false;
+          this.router.navigate(['home']);
+        },
+        err => {
+          let _errorBody;
+          if (err['_body']) {
+            _errorBody = JSON.parse(err['_body'])[0];
+          }
+          switch (err.status) {
+            case 400:
+              break;
+            case 403:                
+              break;
+            case 500:
+              break;
+            default:
+              this.formErrorMsg = 'An error occurred attempting to sign in. Please try again.';
         }
+
+        this.formError = true;
         this.isSubmited = false;
-        this.model = null;
         this.processing = false;
-        this.router.navigate(['home']);
-      },
-      err => {
-        let _errorBody;
-        if (err['_body']) {
-          _errorBody = JSON.parse(err['_body'])[0];
-        }
-        switch (err.status) {
-          case 400:
-            break;
-          case 403:                
-            break;
-          case 500:
-            break;
-          default:
-            this.formErrorMsg = 'An error occurred attempting to sign in. Please try again.';
+        this.model = null;
+
+        });
       }
-
+    } else {
       this.formError = true;
-      this.isSubmited = false;
-      this.processing = false;
-      this.model = null;
-
-      });
+      this.formErrorMsg = "The password doesn't match";
     }
   }
   
@@ -101,5 +107,9 @@ export class SignupComponent implements OnInit {
     };
 
     this.callAuthenticationService(signupModel);
+  }
+
+  goToSignIn() {
+    this.router.navigate(['']);
   }
 }

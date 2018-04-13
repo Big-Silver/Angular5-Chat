@@ -1,23 +1,91 @@
-<div class="login-page" layout="column" layout-align="center center" layout-fill="layout-fill">
+<div class="wrapper">
     <form [formGroup]="appForm"
             autocomplete="on"
-            method='post'>
+            method='post'
+            class="form-signin">      
+        <h2 class="form-signin-heading">Please login</h2>
+        <div [class.error]="(appForm.controls['username'].errors && isSubmited) || formError">
+            <input autofocus
+                    autocomplete='on'
+                    class="form-control"
+                    id="usernameInput"
+                    name="username"
+                    placeholder="Email Address"
+                    required autocomplete="off"
+                    type="text"
+                    input-large
+                    [formControl]="appForm.controls['username']"
+                    (keyup.enter)="onSubmit(appForm)">
+            <app-error-message *ngIf="isSubmited"
+                                class="full-width"
+                                [controlName]="username"
+                                [control]="appForm.controls['username']"></app-error-message>
+        </div>
+        <div [class.error]="(appForm.controls['password'].errors && isSubmited) || formError">
+            <input autocomplete='on'
+                    class="form-control"
+                    id="passwordInput"
+                    name="password"
+                    placeholder="Enter your password"
+                    required autocomplete="off"
+                    type="password"
+                    input-large
+                    [formControl]="appForm.controls['password']"
+                    (keyup.enter)="onSubmit(appForm)">  
+            <app-error-message *ngIf="isSubmited"
+                                class="full-width"
+                                [controlName]="password"
+                                [control]="appForm.controls['password']"></app-error-message>
+        </div>
+        <label class="checkbox">
+            <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
+        </label>
+        <div [hidden]="!formError || !formErrorMsg"
+                class="alert alert-danger">
+                {{formErrorMsg}}
+            <p class="color-whites text-body-medium top-margin-2" *ngIf="formErrorMsgSecondInfo">
+                {{formErrorMsgSecondInfo}}
+            </p>
+        </div>
+         <button class="btn btn-lg btn-primary btn-block"
+                id="signInSubmitButton"
+                type="button"
+                (click)="onSubmit(appForm)"
+                (keyup.enter)="onSubmit(appForm)">
 
-        <div fxLayout="column"
-            fxLayoutAlign="center center">
-            <p class="color-primary-1 text-display top-margin-2"
-                id="signInHeading">Sign in</p>
-            <p *ngIf="timedOut" class="form-group text-center top-margin-3">Your session has expired.<br/>Please sign in to continue.</p>
+            <span *ngIf="!processing" class="text-btn-label-large">Sign in</span>
+            <span *ngIf="processing">
+                <app-wire-spinner></app-wire-spinner>
+            </span>
+        </button>
+        <button class="btn btn-lg btn-primary btn-block"
+                id="signupButton"
+                type="button"
+                (click)="goToSignUp()">
 
-            <div class="full-width top-margin-6"
+            <span class="text-btn-label-large">Register</span>
+        </button>  
+    </form>
+</div>
+
+<!--<div class="login-page">
+    <div class="login-logo">
+        <a href="#"><b>Sign</b> In</a>        
+    </div>
+
+    <div class="login-box-body">
+        <form [formGroup]="appForm"
+                autocomplete="on"
+                method='post'>
+
+            <div class="form-group has-feedback"
                     fxLayout="column"
                     fxLayoutAlign="start start"
                     [class.error]="(appForm.controls['username'].errors && isSubmited) || formError">
 
-                <label class="control-label" for="username">Username</label>
                 <input autofocus
                         autocomplete='on'
-                        class="full-width"
+                        class="form-control"
                         id="usernameInput"
                         name="username"
                         placeholder="Enter your username"
@@ -34,7 +102,7 @@
             </div>
 
 
-            <div class="full-width top-margin-6"
+            <div class="form-group has-feedback"
                     fxLayout="column"
                     fxLayoutAlign="start start"
                     [class.error]="(appForm.controls['password'].errors && isSubmited) || formError">
@@ -56,27 +124,36 @@
                                     [controlName]="password"
                                     [control]="appForm.controls['password']"></app-error-message>
             </div>
+        </form>
+
+        <div [hidden]="!formError || !formErrorMsg"
+                class="alert alert-danger">
+                {{formErrorMsg}}
+            <p class="color-whites text-body-medium top-margin-2" *ngIf="formErrorMsgSecondInfo">
+                {{formErrorMsgSecondInfo}}
+            </p>
         </div>
-    </form>
 
-    <div [hidden]="!formError || !formErrorMsg"
-             class="alert alert-danger">
-             {{formErrorMsg}}
-        <p class="color-whites text-body-medium top-margin-2" *ngIf="formErrorMsgSecondInfo">
-            {{formErrorMsgSecondInfo}}
-        </p>
+        <button class="full-width top-margin-7"
+                id="signInSubmitButton"
+                btn-default
+                type="button"
+                (click)="onSubmit(appForm)"
+                (keyup.enter)="onSubmit(appForm)">
+
+            <span *ngIf="!processing" class="text-btn-label-large">Sign in</span>
+            <span *ngIf="processing">
+                <app-wire-spinner></app-wire-spinner>
+            </span>
+        </button>
+        <button class="full-width top-margin-7"
+                id="signupButton"
+                btn-default
+                type="button"
+                (click)="goToSignUp()">
+
+            <span class="text-btn-label-large">Register</span>
+        </button>
     </div>
-
-    <button class="full-width top-margin-7"
-            id="signInSubmitButton"
-            btn-default
-            type="button"
-            (click)="onSubmit(appForm)"
-            (keyup.enter)="onSubmit(appForm)">
-
-        <span *ngIf="!processing" class="text-btn-label-large">Sign in</span>
-        <span *ngIf="processing">
-            <app-wire-spinner></app-wire-spinner>
-        </span>
-    </button>
-</div>
+    
+</div>-->

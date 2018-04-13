@@ -1,4 +1,104 @@
-<div class="Signup-page" layout="column" layout-align="center center" layout-fill="layout-fill">
+<div class="wrapper">
+    <form [formGroup]="appForm"
+            autocomplete="on"
+            method='post'
+            class="form-signin">      
+        <h2 class="form-signin-heading">Sign up</h2>
+        <div [class.error]="(appForm.controls['username'].errors && isSubmited) || formError">
+            <input autofocus
+                    autocomplete='on'
+                    class="form-control"
+                    id="usernameInput"
+                    name="username"
+                    placeholder="Enter your username"
+                    required autocomplete="off"
+                    type="text"
+                    input-large
+                    [formControl]="appForm.controls['username']"
+                    (keyup.enter)="onSubmit(appForm)">
+            <app-error-message *ngIf="isSubmited"
+                                class="full-width"
+                                [controlName]="username"
+                                [control]="appForm.controls['username']"></app-error-message>
+        </div>
+        <div [class.error]="(appForm.controls['email'].errors && isSubmited) || formError">
+            <input autofocus
+                    autocomplete='on'
+                    class="form-control"
+                    id="emailInput"
+                    name="email"
+                    placeholder="Enter your email"
+                    required autocomplete="off"
+                    type="text"
+                    input-large
+                    [formControl]="appForm.controls['email']"
+                    (keyup.enter)="onSubmit(appForm)">
+            <app-error-message *ngIf="isSubmited"
+                                class="full-width"
+                                [controlName]="email"
+                                [control]="appForm.controls['email']"></app-error-message>
+        </div>
+        <div [class.error]="(appForm.controls['password'].errors && isSubmited) || formError">
+            <input autocomplete='on'
+                    class="form-control"
+                    id="passwordInput"
+                    name="password"
+                    placeholder="Enter your password"
+                    required autocomplete="off"
+                    type="password"
+                    input-large
+                    [formControl]="appForm.controls['password']"
+                    (keyup.enter)="onSubmit(appForm)">  
+            <app-error-message *ngIf="isSubmited"
+                                class="full-width"
+                                [controlName]="password"
+                                [control]="appForm.controls['password']"></app-error-message>
+        </div>
+        <div [class.error]="(appForm.controls['confirmpassword'].errors && isSubmited) || formError">
+            <input autocomplete='on'
+                    class="form-control"
+                    id="confirmPasswordInput"
+                    name="confirmpassword"
+                    placeholder="Enter your confirm password"
+                    required autocomplete="off"
+                    type="password"
+                    input-large
+                    [formControl]="appForm.controls['confirmpassword']"
+                    (keyup.enter)="onSubmit(appForm)">  
+            <app-error-message *ngIf="isSubmited"
+                                class="full-width"
+                                [controlName]="confirmpassword"
+                                [control]="appForm.controls['confirmpassword']"></app-error-message>
+        </div>
+        <div [hidden]="!formError || !formErrorMsg"
+                class="alert alert-danger">
+                {{formErrorMsg}}
+            <p class="color-whites text-body-medium top-margin-2" *ngIf="formErrorMsgSecondInfo">
+                {{formErrorMsgSecondInfo}}
+            </p>
+        </div>
+         <button class="btn btn-lg btn-primary btn-block"
+                id="signInSubmitButton"
+                type="button"
+                (click)="onSubmit(appForm)"
+                (keyup.enter)="onSubmit(appForm)">
+
+            <span *ngIf="!processing" class="text-btn-label-large">Sign up</span>
+            <span *ngIf="processing">
+                <app-wire-spinner></app-wire-spinner>
+            </span>
+        </button>
+        <button class="btn btn-lg btn-primary btn-block"
+                id="signupButton"
+                type="button"
+                (click)="goToSignIn()">
+
+            <span class="text-btn-label-large">Sign In</span>
+        </button>  
+    </form>
+</div>
+
+<!--<div class="Signup-page" layout="column" layout-align="center center" layout-fill="layout-fill">
     <form [formGroup]="appForm"
             autocomplete="on"
             method='post'>
@@ -119,9 +219,9 @@
             (click)="onSubmit(appForm)"
             (keyup.enter)="onSubmit(appForm)">
 
-        <span *ngIf="!processing" class="text-btn-label-large">Sign in</span>
+        <span *ngIf="!processing" class="text-btn-label-large">Sign up</span>
         <span *ngIf="processing">
             <app-wire-spinner></app-wire-spinner>
         </span>
     </button>
-</div>
+</div>-->
