@@ -1,0 +1,127 @@
+<div class="Signup-page" layout="column" layout-align="center center" layout-fill="layout-fill">
+    <form [formGroup]="appForm"
+            autocomplete="on"
+            method='post'>
+
+        <div fxLayout="column"
+            fxLayoutAlign="center center">
+            <p class="color-primary-1 text-display top-margin-2"
+                id="signInHeading">Sign up</p>
+
+            <div class="full-width top-margin-6"
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [class.error]="(appForm.controls['username'].errors && isSubmited) || formError">
+
+                <label class="control-label" for="username">Username</label>
+                <input autofocus
+                        autocomplete='on'
+                        class="full-width"
+                        id="usernameInput"
+                        name="username"
+                        placeholder="Enter your username"
+                        required autocomplete="off"
+                        type="text"
+                        input-large
+                        [formControl]="appForm.controls['username']"
+                        (keyup.enter)="onSubmit(appForm)">
+
+                <app-error-message *ngIf="isSubmited"
+                                    class="full-width"
+                                    [controlName]="username"
+                                    [control]="appForm.controls['username']"></app-error-message>
+            </div>
+
+            <div class="full-width top-margin-6"
+                 fxLayout="column"
+                 fxLayoutAlign="start start"
+                 [class.error]="(appForm.controls['email'].errors && isSubmited) || formError">
+
+              <label class="control-label" for="email">Email</label>
+              <input autofocus
+                     autocomplete='on'
+                     class="full-width"
+                     id="emailInput"
+                     name="email"
+                     placeholder="Enter your email"
+                     required autocomplete="off"
+                     type="text"
+                     input-large
+                     [formControl]="appForm.controls['email']"
+                     (keyup.enter)="onSubmit(appForm)">
+
+              <app-error-message *ngIf="isSubmited"
+                                 class="full-width"
+                                 [controlName]="email"
+                                 [control]="appForm.controls['email']"></app-error-message>
+            </div>
+
+            <div class="full-width top-margin-6"
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [class.error]="(appForm.controls['password'].errors && isSubmited) || formError">
+
+                <label class="control-label" for="password">Password</label>
+                <input autocomplete='on'
+                        class="full-width"
+                        id="passwordInput"
+                        name="password"
+                        placeholder="Enter your password"
+                        required autocomplete="off"
+                        type="password"
+                        input-large
+                        [formControl]="appForm.controls['password']"
+                        (keyup.enter)="onSubmit(appForm)">
+
+                <app-error-message *ngIf="isSubmited"
+                                    class="full-width"
+                                    [controlName]="password"
+                                    [control]="appForm.controls['password']"></app-error-message>
+            </div>
+
+            <div class="full-width top-margin-6"
+                 fxLayout="column"
+                 fxLayoutAlign="start start"
+                 [class.error]="(appForm.controls['confirmpassword'].errors && isSubmited) || formError">
+
+                <label class="control-label" for="confirmpassword">Confirm Password</label>
+                <input autocomplete='on'
+                        class="full-width"
+                        id="confirmPasswordInput"
+                        name="confirmpassword"
+                        placeholder="Enter your confrim password"
+                        required autocomplete="off"
+                        type="password"
+                        input-large
+                        [formControl]="appForm.controls['confirmpassword']"
+                        (keyup.enter)="onSubmit(appForm)">
+
+                <app-error-message *ngIf="isSubmited"
+                                    class="full-width"
+                                    [controlName]="confirmpassword"
+                                    [control]="appForm.controls['confirmpassword']"></app-error-message>
+            </div>
+        </div>
+    </form>
+
+    <div [hidden]="!formError || !formErrorMsg"
+             class="alert alert-danger">
+             {{formErrorMsg}}
+        <p class="color-whites text-body-medium top-margin-2" *ngIf="formErrorMsgSecondInfo">
+            {{formErrorMsgSecondInfo}}
+        </p>
+    </div>
+
+    <button class="full-width top-margin-7"
+            id="signInSubmitButton"
+            btn-default
+            type="button"
+            (click)="onSubmit(appForm)"
+            (keyup.enter)="onSubmit(appForm)">
+
+        <span *ngIf="!processing" class="text-btn-label-large">Sign in</span>
+        <span *ngIf="processing">
+            <app-wire-spinner></app-wire-spinner>
+        </span>
+    </button>
+</div>

@@ -34,11 +34,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             return true;
         }
 
-        if (!this.authService.isSessionActive()) {
-            this.router.navigate(['', {expired: 'true'}]);
-            return false;
-        }
-
         // Navigate to the login page with extras
         this.router.navigate(['']);
         return false;

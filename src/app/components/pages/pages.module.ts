@@ -5,12 +5,15 @@ import { HttpModule } from '@angular/http';
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // components
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 // modules
+import { AppBootstrapModule } from '../../bootstrap.module';
 import { AppCommonModule } from './../../common/common.module';
 import { MaterialModule } from '../../material.module';
 
@@ -18,8 +21,10 @@ import { MaterialModule } from '../../material.module';
   declarations: [
     SignupComponent,
     LoginComponent,
+    HomeComponent,
   ],
   imports: [
+    NgbModule,
     CommonModule,
     BrowserAnimationsModule,
     BrowserModule,
@@ -28,6 +33,7 @@ import { MaterialModule } from '../../material.module';
     HttpModule,
     AppCommonModule,
     MaterialModule,
+    AppBootstrapModule
   ],
   exports: [
     AppCommonModule,

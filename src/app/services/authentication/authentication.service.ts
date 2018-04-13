@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 
 import { Configuration } from '../../common/config/configuration';
 
+import * as QueryString from 'querystring';
 import * as moment from 'moment';
 
 @Injectable()
@@ -24,15 +25,10 @@ export class AuthenticationService {
     public forceLogout(expired?: boolean) {
         sessionStorage.clear();
         this.router.navigate(['']);
-        // if (expired) {
-        //     this.router.navigate(['']);
-        // } else {
-        //     this.router.navigate(['']);
-        // }
     }
 
     public isSignIn(): boolean {
-        const sessionData = sessionStorage.getItem('user_id');
+        const sessionData = sessionStorage.getItem('sessionData');
         if (sessionData) {
             return true;
         }
@@ -43,27 +39,34 @@ export class AuthenticationService {
         this.forceLogout(expired);
     }
 
-    public validateToken() {
-        // GET TOKEN
-        return true;
-    }
-
-    public isSessionActive(): boolean {
-        // if (this.validateToken()) {
-            const loggedInTime = moment(sessionStorage.getItem('_st'), ['X']),
-                now = moment();
-            if (now.diff(loggedInTime, 'minutes') >= this.config.SESSION_TIMEOUT_END_TIME) {
-                this.signout(true);
-            }
-            return now.diff(loggedInTime, 'minutes') <= this.config.SESSION_TIMEOUT_END_TIME;
-        // }
-    }
-
     public setHTTPHeaders() {
         this.headers = new Headers();
-        this.headers.set('Content-Type', 'application/json');
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded');
         this.headers.set('Accept', 'application/json');
 
         return this.headers;
+    }
+
+    AuthenticateUser(credentials: any): Observable<any> {
+        this.setHTTPHeaders();
+        var data = QueryString.stringify({
+            "workspaceId": credentials.workspaceId, 
+            "email": credentials.email,
+            "password": credentials.password
+        });
+        return this.http.post(this.config.BASE_API_URL + '/login', data,
+        {headers: this.headers}).map(res => res.json());
+    }
+
+    SignupUser(credentials: any): Observable<any> {
+        this.setHTTPHeaders();
+        var data = QueryString.stringify({
+            "name": credentials.username,
+            "workspace": credentials.workspaceId,
+            "email": credentials.email,
+            "password": credentials.password
+        });
+        return this.http.post(this.config.BASE_API_URL + '/register', data,
+        {headers: this.headers}).map(res => res.json());
     }
 }

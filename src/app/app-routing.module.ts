@@ -7,6 +7,7 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
 
 import { LoginComponent } from './components/pages/login/login.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
+import { HomeComponent } from './components/pages/home/home.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -26,22 +27,22 @@ const appRoutes: Routes = [
         component: LoginComponent
       },
       {
-        path: 'registration',
+        path: 'signup',
         component: SignupComponent,
       }
     ]
   },
-//   {
-//     path: '',
-//     component: HomeLayoutComponent,
-//     canActivate: [AuthGuard],
-//     children: [
-//       {
-//         path: 'home',
-//         component: HomeComponent
-//       }
-//     ]
-//   },
+  {
+    path: '',
+    component: HomeLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'home',
+        component: HomeComponent
+      }
+    ]
+  },
   {path: '**', redirectTo: ''}
 ];
 

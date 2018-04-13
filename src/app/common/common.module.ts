@@ -4,24 +4,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from '../material.module';
 
 // Components
 // import { CommonFunctions } from './functions';
-// import { SpinnerComponent } from './components/spinner/spinner.component';
-// import { HeaderComponent } from './components/header/header.component';
+import { WireSpinnerComponent } from './components/wire-spinner/wire-spinner.component';
+import { HeaderComponent } from './components/header/header.component';
 
 // Configuration
-// import { Configuration } from './config/configuration';
-// import { ErrorMessages } from './config/error.message';
+import { Configuration } from './config/configuration';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
 @NgModule({
   declarations: [
-    // SpinnerComponent,
-    // HeaderComponent
+    ErrorMessageComponent,
+    WireSpinnerComponent,
+    HeaderComponent
   ],
   exports: [
-    // SpinnerComponent,
-    // HeaderComponent
+    ErrorMessageComponent,
+    WireSpinnerComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -29,11 +32,11 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
+    MaterialModule,
   ],
   providers: [
-    // Configuration,
+    Configuration,
     // CommonFunctions,
-    // ErrorMessages,
     {provide: LOCALE_ID, useValue: 'en-GB'}
   ],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]

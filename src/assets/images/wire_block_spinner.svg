@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="22px" height="26px" viewBox="0 0 22 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>wire_block_spinner</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="wire_block_spinner" transform="translate(0.000000, 1.000000)" stroke="#FFFFFF">
+            <path d="M11,0 L21.3923048,6 L21.3923048,18 L11,24 L0.607695155,18 L0.607695155,6 L11,0 Z" id="Polygon-1" stroke-linecap="round" stroke-linejoin="round"></path>
+            <polyline id="Path-1" points="1.1000061 6.29998779 11.1000061 12.2999878 21.1000061 6.29998779"></polyline>
+            <path d="M11,12 L11,24" id="Path-2"></path>
+        </g>
+    </g>
+</svg>
