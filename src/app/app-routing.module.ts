@@ -8,6 +8,7 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
 import { LoginComponent } from './components/pages/login/login.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
 import { HomeComponent } from './components/pages/home/home.component';
+import { ChangePasswordComponent } from './components/pages/changepassword/changepassword.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -40,6 +41,10 @@ const appRoutes: Routes = [
       {
         path: 'home',
         component: HomeComponent
+      },
+      {
+        path: 'changepassword',
+        component: ChangePasswordComponent
       }
     ]
   },

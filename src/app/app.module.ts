@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
 
 import { AppBootstrapModule } from './bootstrap.module';
 import { MaterialModule } from './material.module';
@@ -20,9 +21,10 @@ import { AuthenticationService } from './services/authentication/authentication.
 import { ValidationService } from './services/validation/validation.service';
 import { SharedDataService } from './services/shared-data/shared-data.service';
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import { SharedDataService } from './services/shared-data/shared-data.service';
     PagesModule,
     LayoutModule,
     SimpleNotificationsModule.forRoot(),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    PasswordStrengthBarModule,
   ],
   exports: [
     AppCommonModule

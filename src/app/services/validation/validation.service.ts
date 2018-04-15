@@ -38,7 +38,8 @@ export class ValidationService {
         'requiredAmount': 'Please enter an amount',
         'requiredPeriodSelect': 'Please select a period',
         'requiredMultipleMails': 'Please enter one or more email address',
-        'upperAndLowerCase': 'Please use uppercase and lowercase letters'
+        'upperAndLowerCase': 'Please use uppercase and lowercase letters',
+        'changePassword': 'Unaccepted character entered in changepassowrd',        
     };
     return config[validatorName];
   }
@@ -279,6 +280,20 @@ export class ValidationService {
       } else {
         return {'invalidCustomerName': true};
       }
+    }
+  }
+
+  static customerNameValidatorSpecialCharacters6letters(control) {
+    if (control.value) {
+      if (control.value.length >= 6) {
+        if (control.value.match(/^[ A-Za-z0-9.,'&@£$*=#%+‘’()\[\]\{}<>€¥!‘“”"?\\/«»_:;\-]*$/)) {
+          return null;
+        } else {
+          return {'changePassword': true};
+        }
+      } else {
+        return {'changePassword': true};
+      }      
     }
   }
 

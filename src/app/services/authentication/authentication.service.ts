@@ -23,7 +23,7 @@ export class AuthenticationService {
     }
 
     public forceLogout(expired?: boolean) {
-        sessionStorage.clear();
+        sessionStorage.removeItem('sessionData');
         this.router.navigate(['']);
     }
 
@@ -67,6 +67,19 @@ export class AuthenticationService {
             "password": credentials.password
         });
         return this.http.post(this.config.BASE_API_URL + '/register', data,
+        {headers: this.headers}).map(res => res.json());
+    }
+
+    changePassword(credentials: any): Observable<any> {
+        this.setHTTPHeaders();
+        var data = QueryString.stringify({
+            "workspaceId": credentials.workspaceId,
+            "email": credentials.email,
+            "password": credentials.password,
+            "newPassword": credentials.newPassword
+        });
+        // console.log(data);
+        return this.http.post(this.config.BASE_API_URL + '/changepassword', data,
         {headers: this.headers}).map(res => res.json());
     }
 }

@@ -11,3 +11,10 @@ export class SignupModel {
     password: string;
     confirmpassword: string;
 }
+
+export class ChangepasswordModel {
+    workspaceId: string;
+    email: string;
+    password: string;
+    newPassword: string;
+}

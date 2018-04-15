@@ -6,11 +6,14 @@ import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
 
 // components
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { ChangePasswordComponent } from './changepassword/changepassword.component';
+import { PasswordStrengthBar } from './changepassword/passwordstrength.component';
 
 // modules
 import { AppBootstrapModule } from '../../bootstrap.module';
@@ -22,10 +25,12 @@ import { MaterialModule } from '../../material.module';
     SignupComponent,
     LoginComponent,
     HomeComponent,
+    ChangePasswordComponent,
+    PasswordStrengthBar,
   ],
   imports: [
     NgbModule,
-    CommonModule,
+    CommonModule, 
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
@@ -33,7 +38,8 @@ import { MaterialModule } from '../../material.module';
     HttpModule,
     AppCommonModule,
     MaterialModule,
-    AppBootstrapModule
+    AppBootstrapModule,
+    PasswordStrengthBarModule
   ],
   exports: [
     AppCommonModule,
