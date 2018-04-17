@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
+import { ValidationService } from '../../../services/validation/validation.service';
+import { SharedDataService } from '../../../services/shared-data/shared-data.service';
+import { ChatService } from '../../../services/chat/chat.service';
 
 @Component({
     selector: 'app-home',
@@ -9,10 +14,54 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+    formErrorMsg = '';
+    formErrorMsgSecondInfo = '';
+    formError = false;
+    appForm: FormGroup;
+    isSubmited = false;
+    loginAttempt = false;
+    processing = false;
+    timedOut = false;
+
+    socket: any;
+    messages:any = [];
+
     constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private authenticationService: AuthenticationService,
+        private routeParams: ActivatedRoute,
+        private sharedData: SharedDataService,
+        private chat: ChatService,
     ) {
+        this.socket = this.chat.getMessages().subscribe(message => {
+            console.log('get message: ', message)
+            this.messages.push(message);
+        })
+        this.buildForm();
     }
 
     ngOnInit() {
+        this.chat.init_message().subscribe(res => {
+            console.log('init_message: ', res)
+        },
+        err => {
+            console.log('init_message error: ', err)
+        })
+    }
+
+    private buildForm(): void {
+        this.appForm = this.fb.group({
+            'message': ['', Validators.compose([Validators.required, ValidationService.emailValidator])],
+        });
+    }
+
+    onSubmit(message: FormGroup): void {
+        var user_id = this.sharedData.getSession('_id');
+        this.chat.sendMessage(user_id, message.controls['message'].value);
+    }
+
+    ngOnDestroy() {
+        this.socket.unsubscribe();
     }
 }

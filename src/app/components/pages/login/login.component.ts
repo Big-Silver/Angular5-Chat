@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Http, Headers } from '@angular/http';
-import { NgForm } from '@angular/forms';
 
 import { AuthenticationModel } from '../../../models/base.model.data';
 

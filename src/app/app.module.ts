@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { ValidationService } from './services/validation/validation.service';
 import { SharedDataService } from './services/shared-data/shared-data.service';
+import { ChatService } from './services/chat/chat.service';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { SharedDataService } from './services/shared-data/shared-data.service';
   providers: [
     AuthenticationService,
     ValidationService,
-    SharedDataService
+    SharedDataService,
+    ChatService,
   ],
   bootstrap: [AppComponent]
 })

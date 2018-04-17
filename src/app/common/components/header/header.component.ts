@@ -25,4 +25,12 @@ export class HeaderComponent implements OnInit {
         this.sharedData.clearSession();
         this.router.navigate(['']);
     }
+
+    public changePassword() {
+        this.router.navigate(['changepassword']);
+    }
+
+    public goToHome() {
+        this.router.navigate(['home']);
+    }
 }

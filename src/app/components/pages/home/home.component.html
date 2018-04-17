@@ -1,1 +1,47 @@
-<p>Welcome Angular chatting</p>
+<div class="chathome">
+    <div class="page-layout carded fullwidth" id="chat">
+        <div class="center">
+            <div class="content-card">
+                <mat-sidenav-container class="mat-drawer-container mat-sidenav-container mat-drawer-transition">
+                    <div class="mat-drawer-backdrop"></div>
+                    <mat-sidenav class="sidenav mat-drawer mat-sidenav mat-drawer-side mat-is-locked-open" fusematsidenavhelper="chat-left-sidenav" mat-is-locked-open="gt-md" mode="side" opened="true" tabindex="-1" style="transform: translate3d(0px, 0px, 0px); visibility: visible;">
+
+                    </mat-sidenav>
+                    <mat-sidenav-content cdkscrollable="" class="mat-drawer-content mat-sidenav-content" style="margin-left: 400px; margin-right: 0px;">
+                        <div class="chat" fxflex="" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 1e-09px;">
+                            <mat-toolbar class="chat-toolbar mat-toolbar mat-toolbar-single-row" style="flex-direction: row; box-sizing: border-box; display: flex;"></mat-toolbar>
+                            <div fuseperfectscrollbar="" fxflex="" id="chat-content" class="ps ps--active-y" style="flex: 1 1 1e-09px; box-sizing: border-box;"></div>
+                            <div class="chat-footer" fxlayout="row" fxlayoutalign="center center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center; align-items: center;">
+                                <form [formGroup]="appForm"
+                                        autocomplete="on"
+                                        method='post'
+                                        class="form-message">
+                                    <div [class.error]="(appForm.controls['message'].errors && isSubmited) || formError" class="form-message-input">
+                                        <input autofocus
+                                                autocomplete='on'
+                                                class="form-control"
+                                                id="messageInput"
+                                                name="message"
+                                                placeholder="Type and hit enter to send message"
+                                                required autocomplete="off"
+                                                type="text"
+                                                input-large
+                                                [formControl]="appForm.controls['message']"
+                                                (keyup.enter)="onSubmit(appForm)">
+                                    </div>
+                                    <button aria-label="Send message" class="mat-fab mat-accent" type="submit" (click)="onSubmit(appForm)">
+                                        <span class="mat-button-wrapper">
+                                            <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">send</mat-icon>
+                                        </span>
+                                        <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
+                                        <div class="mat-button-focus-overlay"></div>
+                                    </button>                                    
+                                </form>
+                            </div>
+                        </div>                        
+                    </mat-sidenav-content>
+                </mat-sidenav-container>
+            </div>
+        </div>
+    </div>
+</div>
