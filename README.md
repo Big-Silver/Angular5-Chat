@@ -2,7 +2,7 @@
 
 The chatting app like slack
 
-<img width="900" height="1000" src="src/assets/images/chat.PNG" border="0" />
+<img width="900" height="700" src="src/assets/images/chat.PNG" border="0" />
 
 ## About
 This project is based on Angular-cli and specialized in Angular 5, Socket.io, Material design and Bootstrap.
