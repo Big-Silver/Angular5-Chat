@@ -239,7 +239,7 @@
 
 .ps {
     position: relative;
-    overflow: hidden!important;
+    overflow: auto;
     overflow-anchor: none;
     -ms-overflow-style: none;
     touch-action: auto;
@@ -324,4 +324,36 @@
 
 .mat-button-wrapper {
     padding: 0 !important;
+}
+
+.chat #chat-content .message-row {
+    padding: 5px;
+}
+
+.chat #chat-content .message-row .bubble {
+    position: relative;
+    padding: 6px 7px 8px 9px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 0.5px rgba(0,0,0,.13);
+    box-shadow: 0 1px 0.5px rgba(0,0,0,.13);
+    border-radius: 6px;
+}
+
+.chat #chat-content .message-row .bubble .message {
+    white-space: pre-wrap;
+}
+
+.chat #chat-content .message-row .bubble .time {
+    font-size: 11px;
+    margin-top: 8px;
+    text-align: right;
+}
+
+.chat #chat-content .message-row .bubble {
+    position: relative;
+    padding: 6px 7px 8px 9px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 0.5px rgba(0,0,0,.13);
+    box-shadow: 0 1px 0.5px rgba(0,0,0,.13);
+    border-radius: 6px;
 }

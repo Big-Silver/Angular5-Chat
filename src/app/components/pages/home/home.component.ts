@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     timedOut = false;
 
     socket: any;
-    messages:any = [];
+    messages:any[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -35,7 +35,6 @@ export class HomeComponent implements OnInit {
         private chat: ChatService,
     ) {
         this.socket = this.chat.getMessages().subscribe(message => {
-            console.log('get message: ', message)
             this.messages.push(message);
         })
         this.buildForm();
@@ -44,6 +43,7 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.chat.init_message().subscribe(res => {
             console.log('init_message: ', res)
+            this.messages = res;
         },
         err => {
             console.log('init_message error: ', err)
@@ -52,13 +52,14 @@ export class HomeComponent implements OnInit {
 
     private buildForm(): void {
         this.appForm = this.fb.group({
-            'message': ['', Validators.compose([Validators.required, ValidationService.emailValidator])],
+            'message': ['', Validators.compose([Validators.required])],
         });
     }
 
     onSubmit(message: FormGroup): void {
         var user_id = this.sharedData.getSession('_id');
         this.chat.sendMessage(user_id, message.controls['message'].value);
+        this.appForm.reset();
     }
 
     ngOnDestroy() {
