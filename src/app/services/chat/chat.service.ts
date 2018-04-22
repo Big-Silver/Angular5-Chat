@@ -31,7 +31,7 @@ export class ChatService {
 		return this.headers;
 	}
 
-	sendMessage(user_id, message){
+	sendMessage(user_id, message) {
 		this.socket.emit('SEND_MESSAGE', {
 			user: user_id,
 			message: message
@@ -42,6 +42,26 @@ export class ChatService {
 		let observable = new Observable(observer => {
 			this.socket = io(this.config.BASE_API_URL);
 			this.socket.on('RECEIVE_MESSAGE', (data) => {
+				observer.next(data);    
+			});
+			return () => {
+				this.socket.disconnect();
+			};  
+		})     
+		return observable;
+	}
+
+	sendTypoSignal(email, workspace) {
+		this.socket.emit('SEND_SIGNAL', {
+			email: email,
+			workspaceId: workspace
+		})
+	}
+
+	getTypoSignal() {
+		let observable = new Observable(observer => {
+			this.socket = io(this.config.BASE_API_URL);
+			this.socket.on('RECEIVE_SIGNAL', (data) => {
 				observer.next(data);    
 			});
 			return () => {

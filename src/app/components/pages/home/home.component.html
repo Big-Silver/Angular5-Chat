@@ -5,7 +5,15 @@
                 <mat-sidenav-container class="mat-drawer-container mat-sidenav-container mat-drawer-transition">
                     <div class="mat-drawer-backdrop"></div>
                     <mat-sidenav class="sidenav mat-drawer mat-sidenav mat-drawer-side mat-is-locked-open" fusematsidenavhelper="chat-left-sidenav" mat-is-locked-open="gt-md" mode="side" opened="true" tabindex="-1" style="transform: translate3d(0px, 0px, 0px); visibility: visible;">
-
+                        <mat-toolbar class="chat-toolbar mat-toolbar mat-toolbar-single-row" style="flex-direction: row; box-sizing: border-box; display: flex;">
+                            <p>Chat</p>
+                        </mat-toolbar>
+                        <ul>
+                            <li *ngFor="let user of users">
+                                <p>{{user.name}}</p>
+                                <p *ngIf="isTypingUser == user.email ? true : false">Typing...</p>
+                            </li>
+                        </ul>
                     </mat-sidenav>
                     <mat-sidenav-content cdkscrollable="" class="mat-drawer-content mat-sidenav-content" style="margin-left: 400px; margin-right: 0px;">
                         <div class="chat" fxflex="" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 1e-09px;">
@@ -38,7 +46,8 @@
                                                 type="text"
                                                 input-large
                                                 [formControl]="appForm.controls['message']"
-                                                (keyup.enter)="onSubmit(appForm)">
+                                                (keyup.enter)="onSubmit(appForm)"
+                                                (keyup)="onKey($event)">
                                     </div>
                                     <button aria-label="Send message" class="mat-fab mat-accent" type="submit" (click)="onSubmit(appForm);">
                                         <span class="mat-button-wrapper">

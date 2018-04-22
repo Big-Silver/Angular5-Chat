@@ -78,8 +78,16 @@ export class AuthenticationService {
             "password": credentials.password,
             "newPassword": credentials.newPassword
         });
-        // console.log(data);
         return this.http.post(this.config.BASE_API_URL + '/changepassword', data,
+        {headers: this.headers}).map(res => res.json());
+    }
+
+    GetUsers(credentials: any): Observable<any> {
+        this.setHTTPHeaders();
+        var data = QueryString.stringify({
+            "workspaceId": credentials.workspaceId
+        });
+        return this.http.post(this.config.BASE_API_URL + '/users', data,
         {headers: this.headers}).map(res => res.json());
     }
 }

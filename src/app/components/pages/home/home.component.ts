@@ -22,9 +22,16 @@ export class HomeComponent implements OnInit {
     loginAttempt = false;
     processing = false;
     timedOut = false;
+    isTypingUser = '';
 
     socket: any;
-    messages:any[] = [];
+    signals: any;
+    messages: any[] = [];
+    users: any[] = [];
+
+    userWorkspace = '';
+    userEmail = '';
+    userId = '';
 
     constructor(
         private fb: FormBuilder,
@@ -36,18 +43,42 @@ export class HomeComponent implements OnInit {
     ) {
         this.socket = this.chat.getMessages().subscribe(message => {
             this.messages.push(message);
-        })
+        });
+        this.signals = this.chat.getTypoSignal().subscribe(signal => {
+            console.log(signal['workspaceId'])
+            if (signal['workspaceId'] == this.userWorkspace) {
+                if (signal['email'] != this.userEmail) {
+                    this.isTypingUser = signal['email'];
+                    console.log('isTypingUser: ', this.isTypingUser);
+                }
+                // this.isTypingUser = signal['email'];
+                setTimeout(() => this.isTypingUser = '', 2000);
+            }
+        });
         this.buildForm();
     }
 
     ngOnInit() {
         this.chat.init_message().subscribe(res => {
-            console.log('init_message: ', res)
             this.messages = res;
+            var model = {
+                'workspaceId': "jinyan"
+            }
+            this.authenticationService.GetUsers(model).subscribe(res => {
+                console.log('users: ', res)
+                this.users = res;
+            },
+            err => {
+                console.log('get user error: ', err);
+            })
         },
         err => {
-            console.log('init_message error: ', err)
+            console.log('init_message error: ', err);
         })
+
+        this.userWorkspace = this.sharedData.getSession('workspace');
+        this.userEmail = this.sharedData.getSession('email');
+        this.userId = this.sharedData.getSession('_id');
     }
 
     private buildForm(): void {
@@ -57,12 +88,16 @@ export class HomeComponent implements OnInit {
     }
 
     onSubmit(message: FormGroup): void {
-        var user_id = this.sharedData.getSession('_id');
-        this.chat.sendMessage(user_id, message.controls['message'].value);
+        this.chat.sendMessage(this.userId, message.controls['message'].value);
         this.appForm.reset();
+    }
+
+    onKey(event: any) { // without type info
+        this.chat.sendTypoSignal(this.userEmail, this.userWorkspace);
     }
 
     ngOnDestroy() {
         this.socket.unsubscribe();
+        this.signals.unsubscribe();
     }
 }
